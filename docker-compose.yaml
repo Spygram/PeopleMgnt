@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:16.8
+    container_name: my_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "${DB_PORT}:5432"
+    volumes:
+      - /opt/demo_db_data:/var/lib/postgresql/data
+
+  webapp:
+    container_name: my_app
+    build: .
+    ports:
+      - "1234:${APP_PORT}"
+    restart: unless-stopped
+    depends_on:
+      -  postgres
