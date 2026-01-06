@@ -27,7 +27,7 @@ pipeline{
         }
         stage('Deploy') {
             steps {
-                sshagent(['remote-host-key']) {
+                sshagent(['jenkins_ssh']) {
                     sh '''
                         ssh -o StrictHostKeyChecking=no ec2-user@10.10.1.228 << 'EOF'
                         cd /home/ec2-user/app-deploy/
