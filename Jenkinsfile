@@ -29,12 +29,12 @@ pipeline{
             steps {
                 sshagent(['jenkins_ssh']) {
                     sh '''
-                        ssh -o StrictHostKeyChecking=no ec2-user@10.10.1.228 << 'EOF'
+                        ssh -o StrictHostKeyChecking=no ec2-user@10.10.1.228 '
                         cd /home/ec2-user/app_deploy/
                         docker compose down
                         docker compose pull
                         docker compose up -d
-                        EOF
+                        '
                     '''
                 }
             }

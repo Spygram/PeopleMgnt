@@ -17,7 +17,6 @@ services:
   webapp:
     container_name: my_app
     build: .
-    image: spygram/peoplemgnt
     ports:
       - "1234:${APP_PORT}"
     restart: unless-stopped
