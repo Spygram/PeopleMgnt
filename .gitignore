@@ -5,3 +5,4 @@ docker-compose_o.yaml
 backend/index_o.js
 demo_db.sql
 xyz/
+app_*
