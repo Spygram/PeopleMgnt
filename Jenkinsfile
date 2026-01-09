@@ -10,6 +10,7 @@ pipeline{
     }
     stages {
         stage("Git checkout"){
+	    agent any	
             steps{
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github_cred', url: 'https://github.com/Spygram/PeopleMgnt.git']])
             }
