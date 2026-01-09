@@ -4,6 +4,7 @@ pipeline{
     environment {
         APP_IMAGE = 'spygram/peoplemgnt'
         IMAGE_TAG = 'latest'
+	DOCKERHUB_CREDENTIALS_ID = 'dockerhub-credentials-id'
         DOCKERHUB_URL = 'https://registry.hub.docker.com'
 
     }
@@ -21,7 +22,7 @@ pipeline{
             steps {
                 script {
                     def image = docker.build("${APP_IMAGE}:${IMAGE_TAG}")
-                    docker.withRegistry('DOCKERHUB_URL', 'dockerhub-credentials-id') {
+                    docker.withRegistry(DOCKERHUB_URL, DOCKERHUB_CREDENTIALS_ID) {
                         image.push()
                     }
                 }
