@@ -29,7 +29,7 @@ pipeline{
         }
 
         stage('Deploy on Deployment Server') {
-            agent { label 'Deployment Server' }   // 👈 Run this stage on that agent
+            agent { label 'Deployment Server' }   // Run this stage on that agent
             steps {
                 sh '''
 		    cd /home/jenkins/app_deploy	
