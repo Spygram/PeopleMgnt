@@ -10,13 +10,14 @@ pipeline{
     }
     stages {
         stage("Git checkout"){
-	    agent any	
+	    agent { label 'buildserver' }  // force this stage to run only on the build node	
             steps{
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github_cred', url: 'https://github.com/Spygram/PeopleMgnt.git']])
             }
         }
 
         stage('Build and Push'){
+	    agent { label 'BuildServer' }  // force this stage to run only on the build node
             steps {
                 script {
                     def image = docker.build("${APP_IMAGE}:${IMAGE_TAG}")
@@ -31,7 +32,7 @@ pipeline{
             agent { label 'Deployment Server' }   // 👈 Run this stage on that agent
             steps {
                 sh '''
-		    cd ./app_deploy	
+		    cd /home/jenkins/app_deploy	
                     docker compose down || true
                     docker compose pull
                     docker compose up -d
