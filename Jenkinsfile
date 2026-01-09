@@ -30,7 +30,6 @@ pipeline{
             agent { label 'Deployment Server' }   // 👈 Run this stage on that agent
             steps {
                 sh '''
-                    cd app_deploy/
                     docker compose down || true
                     docker compose pull
                     docker compose up -d
