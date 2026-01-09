@@ -1,6 +1,6 @@
 pipeline{
 
-    agent any
+    agent none
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials-id')
         APP_IMAGE = 'spygram/peoplemgnt'
@@ -30,6 +30,7 @@ pipeline{
             agent { label 'Deployment Server' }   // 👈 Run this stage on that agent
             steps {
                 sh '''
+		    cd ./app_deploy	
                     docker compose down || true
                     docker compose pull
                     docker compose up -d
