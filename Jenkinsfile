@@ -2,7 +2,6 @@ pipeline{
 
     agent none
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials-id')
         APP_IMAGE = 'spygram/peoplemgnt'
         IMAGE_TAG = 'latest'
         DOCKERHUB_URL = 'https://registry.hub.docker.com'
