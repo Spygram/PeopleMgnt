@@ -4,7 +4,7 @@ pipeline{
     environment {
         APP_IMAGE = 'spygram/peoplemgnt'
         IMAGE_TAG = 'latest'
-        DOCKERHUB_URL = 'https://registry.hub.docker.com'
+       #OCKERHUB_URL = 'https://registry.hub.docker.com'
 
     }
     options { skipDefaultCheckout(true) } // Prevent Jenkins from auto-checking out repo
@@ -21,7 +21,7 @@ pipeline{
             steps {
                 script {
                     def image = docker.build("${APP_IMAGE}:${IMAGE_TAG}")
-                    docker.withRegistry(DOCKERHUB_URL, 'dockerhub-credentials-id') {
+                    docker.withRegistry('', 'dockerhub-credentials-id') {
                         image.push()
                     }
                 }
