@@ -17,7 +17,7 @@ pipeline{
         }
 
         stage('Build and Push'){
-	    agent { label 'BuildServer' }  // force this stage to run only on the build node
+	    agent { label 'buildserver' }  // force this stage to run only on the build node
             steps {
                 script {
                     def image = docker.build("${APP_IMAGE}:${IMAGE_TAG}")
