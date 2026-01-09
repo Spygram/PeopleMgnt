@@ -22,7 +22,7 @@ pipeline{
             steps {
                 script {
                     def image = docker.build("${APP_IMAGE}:${IMAGE_TAG}")
-                    docker.withRegistry(DOCKERHUB_URL, DOCKERHUB_CREDENTIALS) {
+                    docker.withRegistry(DOCKERHUB_URL, 'dockerhub-credentials-id') {
                         image.push()
                     }
                 }
