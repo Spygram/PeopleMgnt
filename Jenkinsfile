@@ -4,7 +4,7 @@ pipeline{
     environment {
         APP_IMAGE = 'spygram/peoplemgnt'
         IMAGE_TAG = 'latest'
-       #OCKERHUB_URL = 'https://registry.hub.docker.com'
+       #DOCKERHUB_URL = 'https://registry.hub.docker.com'
 
     }
     options { skipDefaultCheckout(true) } // Prevent Jenkins from auto-checking out repo
