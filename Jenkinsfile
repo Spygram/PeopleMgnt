@@ -6,7 +6,7 @@ pipeline{
         APP_IMAGE = 'spygram/peoplemgnt'
         IMAGE_TAG = 'latest'
         DOCKERHUB_URL = 'https://registry.hub.docker.com'
-        
+
     }
     stages {
         stage("Git checkout"){
@@ -14,7 +14,7 @@ pipeline{
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'github_cred', url: 'https://github.com/Spygram/PeopleMgnt.git']])
             }
         }
-       
+
         stage('Build and Push'){
             steps {
                 script {
@@ -25,18 +25,16 @@ pipeline{
                 }
             }
         }
-        stage('Deploy') {
+
+        stage('Deploy on Deployment Server') {
+            agent { label 'Deployment Server' }   // 👈 Run this stage on that agent
             steps {
-                sshagent(['jenkins_ssh']) {
-                    sh '''
-                        ssh -o StrictHostKeyChecking=no ec2-user@10.10.1.228 '
-                        cd /home/ec2-user/app_deploy/
-                        docker compose down
-                        docker compose pull
-                        docker compose up -d
-                        '
-                    '''
-                }
+                sh '''
+                    cd app_deploy/
+                    docker compose down || true
+                    docker compose pull
+                    docker compose up -d
+                '''
             }
         }
     }
