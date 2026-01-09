@@ -8,6 +8,7 @@ pipeline{
         DOCKERHUB_URL = 'https://registry.hub.docker.com'
 
     }
+    options { skipDefaultCheckout(true) } // Prevent Jenkins from auto-checking out repo
     stages {
         stage("Git checkout"){
 	    agent { label 'buildserver' }  // force this stage to run only on the build node	
@@ -21,7 +22,7 @@ pipeline{
             steps {
                 script {
                     def image = docker.build("${APP_IMAGE}:${IMAGE_TAG}")
-                    docker.withRegistry(DOCKERHUB_URL, 'dockerhub-credentials-id') {
+                    docker.withRegistry(DOCKERHUB_URL, DOCKERHUB_CREDENTIALS) {
                         image.push()
                     }
                 }
